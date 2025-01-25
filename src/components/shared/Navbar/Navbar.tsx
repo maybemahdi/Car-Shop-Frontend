@@ -33,7 +33,7 @@ const Navbar = () => {
     // <Headroom>
     <nav
       className={cn(
-        'flex justify-between items-center py-5 md:py-8 mx-auto z-[100] shadow-md bg-transparent fixed top-0 w-full h-[100px] text-white',
+        'flex justify-between items-center py-4 md:py-8 mx-auto z-[100] shadow-md bg-transparent fixed top-0 w-full md:h-[100px] text-white',
         {
           'bg-gray-800': isScrolled,
         }
@@ -68,7 +68,7 @@ const Navbar = () => {
         {/* Desktop Login and Button */}
         <div className="hidden lg:flex items-center gap-8">
           <Link
-            to="/auth/login"
+            to="/login"
             className="text-para hover:text-primary transition-all duration-300"
           >
             Login

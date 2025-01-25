@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Button from '../shared/Button/Button';
-import { featuredProducts, ICar } from '../../data/carData';
-import SectionHead from '../shared/SectionHead/SectionHead';
+import Button from '../../shared/Button/Button';
+import { featuredProducts, ICar } from '../../../data/carData';
+import SectionHead from '../../shared/SectionHead/SectionHead';
 import { useInView } from 'react-intersection-observer';
 
 const ProductCard = ({ product }: { product: ICar }) => (
@@ -15,7 +15,11 @@ const ProductCard = ({ product }: { product: ICar }) => (
     transition={{ duration: 0.3 }}
   >
     <div className="relative h-48">
-      <img src={product.image || '/placeholder.svg'} alt={product.name} className='w-full h-full object-cover' />
+      <img
+        src={product.image || '/placeholder.svg'}
+        alt={product.name}
+        className="w-full h-full object-cover"
+      />
     </div>
     <div className="p-4">
       <h3 className="text-lg font-semibold mb-2">{product.name}</h3>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Button from '../shared/Button/Button';
+import Button from '../../shared/Button/Button';
 
 const Banner = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 // Import Swiper styles
 import 'swiper/swiper-bundle.css';
 
-import { ITestimonial, testimonials } from '../../data/testimonials';
-import SectionHead from '../shared/SectionHead/SectionHead';
+import { ITestimonial, testimonials } from '../../../data/testimonials';
+import SectionHead from '../../shared/SectionHead/SectionHead';
 
 const TestimonialCard = ({ testimonial }: { testimonial: ITestimonial }) => (
   <motion.div
