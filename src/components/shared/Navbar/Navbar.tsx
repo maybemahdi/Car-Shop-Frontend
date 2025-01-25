@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import menuItems from "../../../data/menuItems"; // assuming you have a menuItems data file
-import Button from "../Button/Button"; // Assuming Button component is created
 // import Headroom from 'react-headroom';
+import logo from "../../../assets/icons/logo.png";
 
 const Navbar = () => {
   const [, setIsScrolled] = useState(false);
@@ -37,7 +37,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center justify-center">
           <Link to="/" className="font-semibold text-primary text-xl">
-            CarZ
+            <img src={logo} alt="carz" className="h-11 w-full object-cover" />
           </Link>
         </div>
 
