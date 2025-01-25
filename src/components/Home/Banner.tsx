@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../shared/Button/Button';
-import { useParallax } from '../../utils/useParallax';
 
 const Banner = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -24,7 +23,7 @@ const Banner = () => {
   }, [carImages.length]);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white overflow-hidden flex flex-col items-center justify-center">
+    <div className="relative min-h-screen bg-gradient-to-b from-gray-800 to-gray-800 text-white overflow-hidden flex flex-col items-center justify-center">
       {/* Parallax Background */}
       <div
         className="absolute inset-0 z-0"
@@ -38,7 +37,7 @@ const Banner = () => {
       />
 
       {/* Content Container */}
-      <div className="relative z-10 w-[90%] md:w-[88%] mx-auto pt-24 lg:pt-32 flex flex-col lg:flex-row items-center justify-between">
+      <div className="relative z-10 w-[90%] md:w-[88%] mx-auto pt-32 flex flex-col lg:flex-row items-center justify-between">
         {/* Text Content */}
         <motion.div
           className="lg:w-1/2 w-full space-y-8"
@@ -46,7 +45,7 @@ const Banner = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
             Drive Your <span className="text-primary">Dreams</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-xl">
@@ -55,6 +54,9 @@ const Banner = () => {
             time to elevate your journey.
           </p>
           <Button text="Explore Our Collection" />
+          {/* <button className="px-5 bg-gray-800 border border-primary text-primary h-[50px] my-3 flex items-center justify-center rounded-xl cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-primary before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 hover:text-[#fff] hover:border-none">
+            Explore Our Collection
+          </button> */}
         </motion.div>
 
         {/* Car Image Carousel */}

@@ -1,4 +1,4 @@
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ArrowRight } from 'lucide-react';
 import React from 'react';
 import { cn } from '../../../lib/utils';
@@ -14,23 +14,14 @@ interface ButtonProps {
 
 export default function Button({
   text,
-  isRounded,
   arrow,
-  isFullWidth,
-  isReversed,
   handleClick,
 }: ButtonProps) {
   return (
     <button
       onClick={handleClick}
       className={cn(
-        'text-white bg-primary px-[25px] text-base py-2 flex items-center justify-center gap-2 transition-all duration-300 box-border border border-primary',
-        {
-          'rounded-[40px]': isRounded,
-          'rounded-[8px]': !isRounded,
-          'w-full': isFullWidth,
-          'bg-white text-primary': isReversed,
-        }
+        'px-5 bg-transparent border border-primary text-primary h-[50px] my-3 flex items-center justify-center rounded-lg cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-100 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-primary before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-lg hover:before:left-0 hover:text-[#fff] hover:border-none'
       )}
     >
       {text}
