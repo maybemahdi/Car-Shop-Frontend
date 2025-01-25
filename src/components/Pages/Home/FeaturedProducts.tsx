@@ -38,7 +38,7 @@ export const FeaturedProducts = () => {
   });
 
   return (
-    <section className="my-8 md:my-16 bg-gray-100" ref={ref}>
+    <section className="my-12 md:my-16 bg-gray-100" ref={ref}>
       <div className="w-[90%] md:w-[88%] mx-auto">
         <SectionHead
           heading="Featured Cars"

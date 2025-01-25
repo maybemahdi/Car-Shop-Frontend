@@ -5,13 +5,30 @@ import {
   Mail,
   Phone,
   MapPin,
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Button from '../Button/Button';
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import Button from "../Button/Button";
+import { useInView } from "react-intersection-observer";
 
 const Footer = () => {
+  // Hook to detect if the section is in view
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Trigger animation once when the section is in view
+    threshold: 0.5, // Trigger when 50% of the section is visible
+  });
+
   return (
-    <footer className="bg-gray-800 text-white">
+    <motion.footer
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{
+        opacity: inView ? 1 : 0, // Fade in when in view
+        y: inView ? 0 : 20, // Slide up when in view
+      }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+      className="bg-gray-800 text-white"
+    >
       <div className="w-[90%] md:w-[88%] mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -140,7 +157,7 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()} CarZ. All rights reserved.</p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

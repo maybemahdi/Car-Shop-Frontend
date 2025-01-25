@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
-import { IoClose, IoMenu } from 'react-icons/io5';
-import { Link, useLocation } from 'react-router-dom';
-import menuItems from '../../../data/menuItems'; // assuming you have a menuItems data file
+import { useEffect, useState } from "react";
+import { IoClose, IoMenu } from "react-icons/io5";
+import { Link, useLocation } from "react-router-dom";
+import {motion} from "framer-motion";
+import menuItems from "../../../data/menuItems"; // assuming you have a menuItems data file
 // import Headroom from 'react-headroom';
-import logo from '../../../assets/icons/logo.png';
-import { cn } from '../../../lib/utils';
+import logo from "../../../assets/icons/logo.png";
+import { cn } from "../../../lib/utils";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,21 +22,24 @@ const Navbar = () => {
 
   // Listen to scroll events
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Clean up the event listener
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     // <Headroom>
-    <nav
+    <motion.nav
+      initial={{ opacity: 0, y: !isScrolled ? -20 : 0 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 }}
       className={cn(
-        'flex justify-between items-center py-4 md:py-8 mx-auto z-[100] shadow-md bg-transparent fixed top-0 w-full md:h-[100px] text-white',
+        "flex justify-between items-center py-4 md:py-8 mx-auto z-[100] bg-transparent fixed top-0 w-full md:h-[100px] text-white",
         {
-          'bg-gray-800': isScrolled,
+          "bg-gray-800 shadow-md": isScrolled,
         }
       )}
     >
@@ -56,7 +60,7 @@ const Navbar = () => {
                 key={idx}
                 to={menu.path}
                 className={`${
-                  isActive ? 'text-gray-800' : 'text-para'
+                  isActive ? "text-gray-800" : "text-para"
                 } hover:text-gray-800 transition-all duration-300`}
               >
                 {menu.name}
@@ -99,10 +103,10 @@ const Navbar = () => {
         <div
           className={`fixed top-0 left-0 h-[calc(100vh+72px)] bg-gray-800 shadow-lg z-40 transform transition-all duration-500 ease-in-out ${
             isNavOpened
-              ? 'translate-x-0 opacity-100'
-              : '-translate-x-full opacity-0'
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-full opacity-0"
           }`}
-          style={{ width: '80%' }}
+          style={{ width: "80%" }}
         >
           <div
             data-aos="zoom-in"
@@ -120,7 +124,7 @@ const Navbar = () => {
                     to={menu.path}
                     onClick={() => setIsNavOpened(!isNavOpened)}
                     className={`${
-                      isActive ? 'border-b-2 border-primary' : ''
+                      isActive ? "border-b-2 border-primary" : ""
                     } text-[16px] text-white`}
                   >
                     {menu.name}
@@ -135,7 +139,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </motion.nav>
     // </Headroom>
   );
 };

@@ -1,5 +1,9 @@
 const menuItems = [
     {
+      name: 'Home',
+      path: '/',
+    },
+    {
       name: 'About',
       path: '/about',
     },

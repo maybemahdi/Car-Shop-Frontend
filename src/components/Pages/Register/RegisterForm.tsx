@@ -8,6 +8,10 @@ import { Link } from "react-router-dom";
 import Button from "../../shared/Button/Button";
 
 const validationSchema = z.object({
+  name: z
+    .string({
+      required_error: "Name is required",
+    }),
   email: z
     .string({
       required_error: "Email is required",
@@ -32,10 +36,10 @@ export default function RegisterForm() {
       <div className="w-full max-w-lg space-y-8 p-2 xs:p-6">
         <div className="text-center space-y-2">
           <h1 className="text-xl md:text-3xl font-bold tracking-tight text-primary">
-            Log in to your account
+            Register Now
           </h1>
           <p className="text-gray-600">
-            Welcome back! Please enter your details.
+            Start your journey with us
           </p>
         </div>
 
@@ -47,8 +51,17 @@ export default function RegisterForm() {
           >
             <div className="w-full">
               <MyFormInput
+                name={"name"}
+                label="Name"
+                placeHolder="Enter your name"
+                inputClassName="border hover:border-primary focus:border-primary bg-white py-3"
+              />
+            </div>
+            <div className="w-full">
+              <MyFormInput
                 name={"email"}
                 label="Email"
+                type="email"
                 placeHolder="Enter your email"
                 inputClassName="border hover:border-primary focus:border-primary bg-white py-3"
               />
@@ -66,17 +79,17 @@ export default function RegisterForm() {
               <MyFormCheckbox name="remember" label="Remember for 30 days" checkboxClassName='text-primary' />
               <Link to={"/auth/forgot-password"} className="text-primary cursor-pointer">Forgot password</Link>
             </div> */}
-            <Button text="Sign in" />
+            <Button text="Sign up" />
           </MyFormWrapper>
         </div>
 
         <p className="text-center text-sm text-gray-600">
-          Don&apos;t have an account?
+          Already have an account?
           <Link
-            to="/register"
+            to="/login"
             className="font-medium text-primary hover:text-primary ms-1"
           >
-            Sign up
+            Login
           </Link>
         </p>
       </div>

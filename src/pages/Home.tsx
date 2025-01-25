@@ -1,3 +1,4 @@
+import { ScrollRestoration } from 'react-router-dom';
 import Banner from '../components/Pages/Home/Banner';
 import { FeaturedProducts } from '../components/Pages/Home/FeaturedProducts';
 import { TestimonialsSection } from '../components/Pages/Home/TestimonialsSection';
@@ -8,6 +9,7 @@ const Home = () => {
       <Banner />
       <FeaturedProducts />
       <TestimonialsSection />
+      <ScrollRestoration />
     </div>
   );
 };

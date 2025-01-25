@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import Button from '../../shared/Button/Button';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Button from "../../shared/Button/Button";
 
 const Banner = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   // const parallaxOffset = useParallax(0.5);
 
   const carImages = [
-    'https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2066&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2066&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   ];
 
   useEffect(() => {
@@ -29,15 +29,16 @@ const Banner = () => {
         className="absolute inset-0 z-0"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2066&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+            "url('https://images.unsplash.com/photo-1593720083103-e7118f71cad2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           // transform: `translateY(${parallaxOffset}px)`,
         }}
       />
+      <div className="absolute inset-0 bg-black opacity-80" />
 
       {/* Content Container */}
-      <div className="relative z-10 w-[90%] md:w-[88%] mx-auto pt-32 flex flex-col lg:flex-row items-center justify-between">
+      <div className="relative z-10 w-[90%] md:w-[88%] mx-auto pt-32 pb-12 flex flex-col lg:flex-row items-center justify-between">
         {/* Text Content */}
         <motion.div
           className="lg:w-1/2 w-full space-y-8"
@@ -81,9 +82,6 @@ const Banner = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* Bottom Accent */}
-      {/* <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-primary/50 to-transparent" /> */}
     </div>
   );
 };
