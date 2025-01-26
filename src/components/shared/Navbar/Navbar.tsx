@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 import menuItems from "../../../data/menuItems"; // assuming you have a menuItems data file
 // import Headroom from 'react-headroom';
 import logo from "../../../assets/icons/logo.png";
@@ -39,7 +39,9 @@ const Navbar = () => {
       className={cn(
         "flex justify-between items-center py-4 md:py-8 mx-auto z-[100] bg-transparent fixed top-0 w-full md:h-[100px] text-white",
         {
-          "bg-gray-800 shadow-md": isScrolled,
+          "bg-gray-800 shadow-md":
+            isScrolled ||
+            (location.pathname !== "/" && location.pathname !== "/about"),
         }
       )}
     >
