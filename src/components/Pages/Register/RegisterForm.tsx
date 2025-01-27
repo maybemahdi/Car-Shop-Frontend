@@ -1,17 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import MyFormWrapper from "../../ui/MyForm/MyFormWrapper/MyFormWrapper";
 import MyFormInput from "../../ui/MyForm/MyFormInput/MyFormInput";
 // import MyFormCheckbox from '../../ui/MyForm/MyFormCheckbox/MyFormCheckbox';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../shared/Button/Button";
+import { toast } from "sonner";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../../../redux/features/auth/authApi";
+import { setUser } from "../../../redux/features/auth/authSlice";
+import { useAppDispatch } from "../../../redux/hooks";
 
 const validationSchema = z.object({
-  name: z
-    .string({
-      required_error: "Name is required",
-    }),
+  name: z.string({
+    required_error: "Name is required",
+  }),
   email: z
     .string({
       required_error: "Email is required",
@@ -24,12 +30,38 @@ const validationSchema = z.object({
     .min(8, "Password must be at least 8 characters long"),
 });
 
+type TFormData = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export default function RegisterForm() {
-  const handleSubmit = async (
-    formData: SubmitHandler<FieldValues>,
-    reset: () => void
-  ) => {
-    console.log(formData, reset);
+  const [register] = useRegisterMutation();
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (formData: TFormData, reset: () => void) => {
+    const toastId = toast.loading("Creating an account");
+    try {
+      const res = await register(formData).unwrap();
+      console.log(res);
+      if (res.success) {
+        toast.success(res.message, { id: toastId });
+        reset();
+        const loginRes = await login({ email: formData.email, password: formData.password });
+        await dispatch(
+          setUser({
+            user: { email: loginRes.data.email, role: loginRes.data.role },
+            token: loginRes.data.token,
+          })
+        );
+        navigate("/");
+      }
+    } catch (error: any) {
+      toast.error(error?.message || "Something went wrong", { id: toastId });
+    }
   };
   return (
     <div className="min-h-[calc(100vh-57px)] flex items-center justify-center bg-transparent">
@@ -38,9 +70,7 @@ export default function RegisterForm() {
           <h1 className="text-xl md:text-3xl font-bold tracking-tight text-primary">
             Register Now
           </h1>
-          <p className="text-gray-600">
-            Start your journey with us
-          </p>
+          <p className="text-gray-600">Start your journey with us</p>
         </div>
 
         <div className="bg-white p-3 xs:p-6 rounded-lg shadow-sm border border-gray-100">

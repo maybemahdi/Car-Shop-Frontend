@@ -1,0 +1,102 @@
+[
+  {
+    "brand": "Toyota",
+    "model": "Corolla",
+    "year": 2021,
+    "price": 22000,
+    "category": "Sedan",
+    "description": "A reliable and fuel-efficient sedan with modern features.",
+    "quantity": 10,
+    "inStock": true
+  },
+  {
+    "brand": "Honda",
+    "model": "Civic",
+    "year": 2023,
+    "price": 24000,
+    "category": "Sedan",
+    "description": "A sporty and stylish sedan with advanced technology.",
+    "quantity": 5,
+    "inStock": true
+  },
+  {
+    "brand": "Tesla",
+    "model": "Model 3",
+    "year": 2023,
+    "price": 45000,
+    "category": "Sedan",
+    "description": "An all-electric sedan with exceptional range and performance.",
+    "quantity": 3,
+    "inStock": true
+  },
+  {
+    "brand": "Ford",
+    "model": "F-150",
+    "year": 2022,
+    "price": 35000,
+    "category": "Truck",
+    "description": "A powerful and durable truck, perfect for heavy-duty tasks.",
+    "quantity": 8,
+    "inStock": true
+  },
+  {
+    "brand": "BMW",
+    "model": "X5",
+    "year": 2023,
+    "price": 60000,
+    "category": "SUV",
+    "description": "A luxury SUV with premium features and excellent performance.",
+    "quantity": 2,
+    "inStock": true
+  },
+  {
+    "brand": "Toyota",
+    "model": "Camry",
+    "year": 2022,
+    "price": 28000,
+    "category": "Sedan",
+    "description": "A midsize sedan offering comfort, safety, and reliability.",
+    "quantity": 6,
+    "inStock": true
+  },
+  {
+    "brand": "Honda",
+    "model": "Accord",
+    "year": 2021,
+    "price": 26000,
+    "category": "Sedan",
+    "description": "A spacious and comfortable sedan with a sleek design.",
+    "quantity": 4,
+    "inStock": true
+  },
+  {
+    "brand": "Tesla",
+    "model": "Model X",
+    "year": 2023,
+    "price": 90000,
+    "category": "SUV",
+    "description": "A luxury electric SUV with unparalleled performance and features.",
+    "quantity": 1,
+    "inStock": true
+  },
+  {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 2022,
+    "price": 55000,
+    "category": "Coupe",
+    "description": "A classic American muscle car with modern performance.",
+    "quantity": 7,
+    "inStock": true
+  },
+  {
+    "brand": "BMW",
+    "model": "4 Series Convertible",
+    "year": 2023,
+    "price": 70000,
+    "category": "Convertible",
+    "description": "A luxurious convertible with premium styling and performance.",
+    "quantity": 3,
+    "inStock": true
+  }
+]

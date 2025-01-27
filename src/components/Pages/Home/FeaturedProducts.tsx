@@ -1,12 +1,25 @@
-"use client";
-
 import { Link } from "react-router-dom";
 import Button from "../../shared/Button/Button";
-import { featuredProducts } from "../../../data/carData";
 import SectionHead from "../../shared/SectionHead/SectionHead";
 import ProductCard from "../../shared/ProductCard/ProductCard";
+import { ICar } from "../../../types/car.interface";
+import { useGetAllCarsQuery } from "../../../redux/features/car/car.api";
+import Loading from "../../shared/Loading/Loading";
 
 export const FeaturedProducts = () => {
+  const { data: response, isLoading, isError } = useGetAllCarsQuery(undefined);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (isError) {
+    return (
+      <h3 className="text-main font-bold text-2xl flex items-center justify-center h-screen">
+        Broh! Refresh and try again
+      </h3>
+    );
+  }
+  const cars = response?.data;
   return (
     <section className="my-8 md:my-12 bg-gray-100">
       <div className="w-[90%] md:w-[88%] mx-auto">
@@ -15,8 +28,8 @@ export const FeaturedProducts = () => {
           description="Check out our latest featured cars"
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProducts.map((product, index) => (
-            <ProductCard key={index} product={product} />
+          {cars.map((product: ICar, index: number) => (
+            <ProductCard key={index} car={product} />
           ))}
         </div>
         <div className="text-center mt-5 flex justify-end">

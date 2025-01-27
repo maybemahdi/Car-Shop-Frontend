@@ -1,28 +1,58 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FieldValues, SubmitHandler } from 'react-hook-form';
-import { z } from 'zod';
-import MyFormWrapper from '../../ui/MyForm/MyFormWrapper/MyFormWrapper';
-import MyFormInput from '../../ui/MyForm/MyFormInput/MyFormInput';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import MyFormWrapper from "../../ui/MyForm/MyFormWrapper/MyFormWrapper";
+import MyFormInput from "../../ui/MyForm/MyFormInput/MyFormInput";
 // import MyFormCheckbox from '../../ui/MyForm/MyFormCheckbox/MyFormCheckbox';
-import { Link } from 'react-router-dom';
-import Button from '../../shared/Button/Button';
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import Button from "../../shared/Button/Button";
+import { useLoginMutation } from "../../../redux/features/auth/authApi";
+import { useAppDispatch } from "../../../redux/hooks";
+import { toast } from "sonner";
+import { setUser } from "../../../redux/features/auth/authSlice";
 
 const validationSchema = z.object({
   email: z
     .string({
-      required_error: 'Email is required',
+      required_error: "Email is required",
     })
-    .email('Invalid email address'),
+    .email("Invalid email address"),
   password: z
     .string({
-      required_error: 'Password is required',
+      required_error: "Password is required",
     })
-    .min(8, 'Password must be at least 8 characters long'),
+    .min(8, "Password must be at least 8 characters long"),
 });
 
+type TFormData = {
+  email: string;
+  password: string;
+};
+
 export default function LoginForm() {
-  const handleSubmit = async (formData: SubmitHandler<FieldValues>, reset: () => void) => {
-    console.log(formData, reset);
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (formData: TFormData, reset: () => void) => {
+    const toastId = toast.loading("Logging in your account");
+    try {
+      const res = await login(formData).unwrap();
+      console.log(res);
+      if (res.success) {
+        toast.success(res.message, { id: toastId });
+        reset();
+        await dispatch(
+          setUser({
+            user: { email: res.data.email, role: res.data.role },
+            token: res.data.token,
+          })
+        );
+        navigate("/");
+      }
+    } catch (error: any) {
+      toast.error(error?.message || "Something went wrong", { id: toastId });
+    }
   };
   return (
     <div className="min-h-[calc(100vh-57px)] flex items-center justify-center bg-transparent">
@@ -44,26 +74,26 @@ export default function LoginForm() {
           >
             <div className="w-full">
               <MyFormInput
-                name={'email'}
+                name={"email"}
                 label="Email"
                 placeHolder="Enter your email"
-                inputClassName='border hover:border-primary focus:border-primary bg-white py-3'
+                inputClassName="border hover:border-primary focus:border-primary bg-white py-3"
               />
             </div>
             <div className="w-full">
               <MyFormInput
-                name={'password'}
+                name={"password"}
                 label="Password"
                 placeHolder="Enter your Password"
                 type="password"
-                inputClassName='border hover:border-primary focus:border-primary py-3'
+                inputClassName="border hover:border-primary focus:border-primary py-3"
               />
             </div>
             {/* <div className="w-full flex gap-1 items-center justify-between">
               <MyFormCheckbox name="remember" label="Remember for 30 days" checkboxClassName='text-primary' />
               <Link to={"/auth/forgot-password"} className="text-primary cursor-pointer">Forgot password</Link>
             </div> */}
-            <Button text='Sign in' />
+            <Button text="Sign in" />
           </MyFormWrapper>
         </div>
 

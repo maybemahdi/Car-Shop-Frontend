@@ -49,7 +49,7 @@ const Banner = () => {
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
             Drive Your <span className="text-primary">Dreams</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-xl">
+          <p className="text-base text-gray-300 max-w-xl">
             Discover the perfect blend of luxury, performance, and style. Our
             handpicked selection of premium vehicles awaits your command. It's
             time to elevate your journey.
