@@ -7,8 +7,6 @@ import {
     fetchBaseQuery,
   } from '@reduxjs/toolkit/query/react';
   import { RootState } from '../store';
-  import { logout, setUser } from '../features/auth/authSlice';
-  import { toast } from 'sonner';
 
   const BASE_API = import.meta.env.VITE_API_URL
   
