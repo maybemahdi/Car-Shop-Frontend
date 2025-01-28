@@ -15,6 +15,7 @@ import {
 } from "../../../redux/features/auth/authSlice";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
+import { RxDashboard } from "react-icons/rx";
 import { BiLogOut } from "react-icons/bi";
 import { toast } from "sonner";
 
@@ -117,11 +118,18 @@ const Navbar = () => {
                     <h3 className="font-medium">Martin De</h3>
                   </div>
                   <button
-                    onClick={() => navigate("/dashboard")}
+                    onClick={() => navigate("/dashboard/my-profile")}
                     className="w-full flex items-center hover:bg-[#e6270e] gap-3 px-4 py-2 mt-2 text-sm text-white transition-colors"
                   >
                     <FiUser className="h-4 w-4 text-main" />
                     My Profile
+                  </button>
+                  <button
+                    onClick={() => navigate("/dashboard")}
+                    className="w-full flex items-center hover:bg-[#e6270e] gap-3 px-4 py-2 text-sm text-white transition-colors"
+                  >
+                    <RxDashboard className="h-4 w-4 text-main" />
+                    Dashboard
                   </button>
                   <button
                     onClick={() => {

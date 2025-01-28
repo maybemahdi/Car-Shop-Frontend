@@ -11,9 +11,9 @@ const menuItems = [
       name: 'Shop',
       path: '/shop',
     },
-    {
-      name: 'Dashboard',
-      path: '/dashboard',
-    },
+    // {
+    //   name: 'Dashboard',
+    //   path: '/dashboard',
+    // },
   ];
   export default menuItems;
