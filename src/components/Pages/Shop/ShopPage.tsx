@@ -26,14 +26,16 @@ const ShopPage = () => {
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [availability, setAvailability] = useState("");
-  const [priceRange, setPriceRange] = useState<any>([0, 2000000]);
+  const [priceRange, setPriceRange] = useState<any>([0, 200000]);
+  console.log(priceRange);
   const queryParams = [
     { name: "searchTerm", value: search },
     { name: "model", value: model },
     { name: "brand", value: brand },
     { name: "category", value: category },
     { name: "availability", value: availability },
-  ].filter((param) => param.value?.trim());
+    { name: "priceRange", value: priceRange },
+  ];
   const {
     data: response,
     isLoading,
@@ -74,7 +76,7 @@ const ShopPage = () => {
     setBrand("");
     setCategory("");
     setAvailability("");
-    setPriceRange([0, 2000000]);
+    setPriceRange([0, 200000]);
     window.location.reload();
   };
   const onSearch: SearchProps["onSearch"] = (value) => {
@@ -145,7 +147,7 @@ const ShopPage = () => {
           <Slider
             range
             min={0}
-            max={2000000}
+            max={200000}
             value={priceRange}
             onChange={handleSliderChange}
             trackStyle={[{ backgroundColor: "#E53E29", height: 8 }]}

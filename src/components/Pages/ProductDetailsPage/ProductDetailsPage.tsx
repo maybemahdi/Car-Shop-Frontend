@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetSingleCarQuery } from "../../../redux/features/car/car.api";
 import Loading from "../../shared/Loading/Loading";
 import Button from "../../shared/Button/Button";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: response, isLoading, isError } = useGetSingleCarQuery(id);
 
   // Loading state
@@ -72,14 +73,15 @@ const ProductDetailsPage = () => {
               {car.description}
             </p>
             <p>
-              <span className="font-semibold">Quantity:</span> {car.quantity}
-            </p>
-            <p>
-              <span className="font-semibold">In Stock:</span>{" "}
-              {car.inStock ? "Yes" : "No"}
+              <span className="font-semibold">Stock:</span> {car.quantity}
             </p>
           </div>
-          <Button text="Buy Now" />
+          <Button
+            text="Buy Now"
+            handleClick={() => {
+              navigate(`/checkout?id=${id}`);
+            }}
+          />
         </div>
       </div>
     </div>

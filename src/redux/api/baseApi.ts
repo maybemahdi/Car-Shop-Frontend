@@ -17,7 +17,7 @@ import {
       const token = (getState() as RootState).auth.token;
 
       if (token) {
-        headers.set("authorization", `${token}`);
+        headers.set("authorization", `Bearer ${token}`);
       }
 
       return headers;

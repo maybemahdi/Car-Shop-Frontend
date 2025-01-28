@@ -44,7 +44,12 @@ export default function LoginForm() {
         reset();
         await dispatch(
           setUser({
-            user: { email: res.data.email, role: res.data.role },
+            user: {
+              id: res.data.id,
+              name: res.data.name,
+              email: res.data.email,
+              role: res.data.role,
+            },
             token: res.data.token,
           })
         );

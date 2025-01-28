@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 import menuItems from "../../../data/menuItems"; // assuming you have a menuItems data file
 // import Headroom from 'react-headroom';
 import logo from "../../../assets/icons/logo.png";
@@ -97,42 +99,26 @@ const Navbar = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-2 hover:bg-gray-100 p-1 rounded-full transition-colors"
+                className="flex items-center gap-2 hover:bg-primary p-1 rounded-full transition-colors"
                 aria-expanded={isDropdownOpen}
                 aria-haspopup="true"
               >
-                <div className="h-10 w-10 rounded-full border overflow-hidden bg-gray-100">
-                  <img
-                    height={100}
-                    width={100}
-                    src="/placeholder.svg?height=32&width=32"
-                    alt="User avatar"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
+                <Avatar size="large" icon={<UserOutlined />} />
                 <MdKeyboardArrowDown className="h-5 w-5 text-gray-600" />
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-20">
+                <div className="absolute right-0 mt-2 w-72 bg-primary rounded-lg shadow-lg py-1 z-20">
                   <div
                     onClick={() => navigate("/dashboard")}
-                    className="flex items-center gap-3 mx-3 border-b border-dashed cursor-pointer"
+                    className="flex items-center gap-3 mx-3 cursor-pointer"
                   >
-                    <div className="h-10 w-10 rounded-full border overflow-hidden bg-gray-100">
-                      <img
-                        height={100}
-                        width={100}
-                        src="/placeholder.svg?height=32&width=32"
-                        alt="User avatar"
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
+                    <Avatar size="large" icon={<UserOutlined />} />
                     <h3 className="font-medium">Martin De</h3>
                   </div>
                   <button
                     onClick={() => navigate("/dashboard")}
-                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center hover:bg-[#e6270e] gap-3 px-4 py-2 mt-2 text-sm text-white transition-colors"
                   >
                     <FiUser className="h-4 w-4 text-main" />
                     My Profile
@@ -141,8 +127,9 @@ const Navbar = () => {
                     onClick={() => {
                       dispatch(logout());
                       toast.success("Log out Successful");
+                      navigate("/login");
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center hover:bg-[#e6270e] gap-3 px-4 py-2 text-sm text-white transition-colors"
                   >
                     <BiLogOut className="h-4 w-4 text-main" />
                     Logout

@@ -1,16 +1,19 @@
-import { createBrowserRouter } from 'react-router-dom';
-import MainLayout from '../layouts/MainLayout';
-import Home from '../pages/Home';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import About from '../pages/About';
-import Shop from '../pages/Shop';
-import ProductDetails from '../pages/ProductDetails';
-import Error from '../pages/Error';
+import { createBrowserRouter } from "react-router-dom";
+import MainLayout from "../layouts/MainLayout";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import About from "../pages/About";
+import Shop from "../pages/Shop";
+import ProductDetails from "../pages/ProductDetails";
+import Error from "../pages/Error";
+import Checkout from "../pages/Checkout";
+import VerifyOrder from "../pages/VerifyOrder";
+import WithAuth from "./WithAuth";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <MainLayout />,
     errorElement: <Error />,
     children: [
@@ -19,25 +22,37 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/about',
+        path: "/about",
         element: <About />,
       },
       {
-        path: '/shop',
+        path: "/shop",
         element: <Shop />,
       },
       {
-        path: '/car/:id',
+        path: "/car/:id",
         element: <ProductDetails />,
+      },
+      {
+        path: "/checkout",
+        element: (
+          <WithAuth>
+            <Checkout />
+          </WithAuth>
+        ),
+      },
+      {
+        path: "/shurjopay-response",
+        element: <VerifyOrder />,
       },
     ],
   },
   {
-    path: '/login',
+    path: "/login",
     element: <Login />,
   },
   {
-    path: '/register',
+    path: "/register",
     element: <Register />,
   },
 ]);
