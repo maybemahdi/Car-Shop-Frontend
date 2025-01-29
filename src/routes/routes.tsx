@@ -47,7 +47,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/shurjopay-response",
-        element: <VerifyOrder />,
+        element: (
+          <WithAuth>
+            <VerifyOrder />
+          </WithAuth>
+        ),
       },
     ],
   },
