@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   logout,
   selectCurrentToken,
+  selectCurrentUser,
 } from "../../../redux/features/auth/authSlice";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
@@ -20,6 +21,7 @@ import { BiLogOut } from "react-icons/bi";
 import { toast } from "sonner";
 
 const Navbar = () => {
+  const user = useAppSelector(selectCurrentUser);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -115,7 +117,7 @@ const Navbar = () => {
                     className="flex items-center gap-3 mx-3 cursor-pointer"
                   >
                     <Avatar size="large" icon={<UserOutlined />} />
-                    <h3 className="font-medium">Martin De</h3>
+                    <h3 className="font-medium">{user?.name}</h3>
                   </div>
                   <button
                     onClick={() => navigate("/dashboard/my-profile")}

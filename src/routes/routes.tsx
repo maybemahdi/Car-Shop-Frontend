@@ -10,6 +10,10 @@ import Error from "../pages/Error";
 import Checkout from "../pages/Checkout";
 import VerifyOrder from "../pages/VerifyOrder";
 import WithAuth from "./WithAuth";
+import DashboardHome from "../pages/Dashboard/User/DashboardHome";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MyOrders from "../pages/Dashboard/User/MyOrders";
+import MyProfile from "../pages/Dashboard/User/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +51,41 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  //dashboard layout
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    // errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: (
+          <WithAuth>
+            <DashboardHome />
+          </WithAuth>
+        ),
+      },
+      {
+        path: "my-orders",
+        element: (
+          <WithAuth>
+            <MyOrders />
+          </WithAuth>
+        ),
+      },
+      {
+        path: "my-profile",
+        element: (
+          <WithAuth>
+            <MyProfile />
+          </WithAuth>
+        ),
+      },
+    ],
+  },
+
+  // auth
   {
     path: "/login",
     element: <Login />,
