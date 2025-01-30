@@ -7,7 +7,12 @@ import { useGetAllCarsQuery } from "../../../redux/features/car/car.api";
 import Loading from "../../shared/Loading/Loading";
 
 export const FeaturedProducts = () => {
-  const { data: response, isLoading, isError } = useGetAllCarsQuery(undefined);
+  const queryParams = [{ name: "limit", value: 8 }];
+  const {
+    data: response,
+    isLoading,
+    isError,
+  } = useGetAllCarsQuery(queryParams);
 
   if (isLoading) {
     return <Loading />;
@@ -21,13 +26,13 @@ export const FeaturedProducts = () => {
   }
   const cars = response?.data;
   return (
-    <section className="my-8 md:my-12 bg-gray-100">
+    <section className="my-8 md:my-16 bg-gray-100">
       <div className="w-[90%] md:w-[88%] mx-auto">
         <SectionHead
           heading="Featured Cars"
           description="Check out our latest featured cars"
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {cars.map((product: ICar, index: number) => (
             <ProductCard key={index} car={product} />
           ))}

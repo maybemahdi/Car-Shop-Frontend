@@ -56,7 +56,11 @@ export default function LoginForm() {
         navigate("/");
       }
     } catch (error: any) {
-      toast.error(error?.message || "Something went wrong", { id: toastId });
+      if (error?.status === 401) {
+        toast.error(error?.data?.message, { id: toastId });
+        return;
+      }
+      toast.error(error?.data?.message || "Something went wrong", { id: toastId });
     }
   };
   return (
@@ -75,7 +79,7 @@ export default function LoginForm() {
           <MyFormWrapper
             onSubmit={handleSubmit}
             resolver={zodResolver(validationSchema)}
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-4"
           >
             <div className="w-full">
               <MyFormInput
@@ -98,7 +102,9 @@ export default function LoginForm() {
               <MyFormCheckbox name="remember" label="Remember for 30 days" checkboxClassName='text-primary' />
               <Link to={"/auth/forgot-password"} className="text-primary cursor-pointer">Forgot password</Link>
             </div> */}
-            <Button text="Sign in" />
+            <div className="-mt-2 md:mt-0 w-full">
+              <Button text="Sign in" isFullWidth={true} />
+            </div>
           </MyFormWrapper>
         </div>
 

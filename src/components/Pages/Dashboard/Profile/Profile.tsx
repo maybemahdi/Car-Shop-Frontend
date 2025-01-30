@@ -14,7 +14,7 @@ const Profile = () => {
   };
   return (
     <div className="max-w-[100%] mx-auto w-80">
-      <div className="rounded-lg border-2 border-primary bg-transparent p-4 text-center shadow-lg">
+      <div className="rounded-lg border-2 border-primary bg-transparent px-4 py-8 text-center shadow-lg">
         <figure className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"

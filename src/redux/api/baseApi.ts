@@ -69,8 +69,8 @@ import {
   };
   
   export const baseApi = createApi({
-    reducerPath: 'baseApi',
+    reducerPath: "baseApi",
     baseQuery: baseQueryWithRefreshToken,
-    tagTypes: ["cars"],
+    tagTypes: ["cars", "orders", "users"],
     endpoints: () => ({}),
   });

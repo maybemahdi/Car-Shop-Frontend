@@ -134,7 +134,7 @@ export default function VerifyOrder() {
             )}
           </div>
           <div className="mt-4">
-            <Link to="/my-orders">
+            <Link to="/dashboard/my-orders">
               <Button text="View Orders" />
             </Link>
           </div>

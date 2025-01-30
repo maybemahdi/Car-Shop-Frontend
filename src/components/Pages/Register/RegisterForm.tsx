@@ -50,10 +50,18 @@ export default function RegisterForm() {
       if (res.success) {
         toast.success(res.message, { id: toastId });
         reset();
-        const loginRes = await login({ email: formData.email, password: formData.password });
+        const loginRes = await login({
+          email: formData.email,
+          password: formData.password,
+        }).unwrap();
         await dispatch(
           setUser({
-            user: { email: loginRes.data.email, role: loginRes.data.role },
+            user: {
+              id: loginRes.data.id,
+              name: loginRes.data.name,
+              email: loginRes.data.email,
+              role: loginRes.data.role,
+            },
             token: loginRes.data.token,
           })
         );
@@ -77,7 +85,7 @@ export default function RegisterForm() {
           <MyFormWrapper
             onSubmit={handleSubmit}
             resolver={zodResolver(validationSchema)}
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-4"
           >
             <div className="w-full">
               <MyFormInput
@@ -109,7 +117,9 @@ export default function RegisterForm() {
               <MyFormCheckbox name="remember" label="Remember for 30 days" checkboxClassName='text-primary' />
               <Link to={"/auth/forgot-password"} className="text-primary cursor-pointer">Forgot password</Link>
             </div> */}
-            <Button text="Sign up" />
+            <div className="-mt-2 md:mt-0 w-full">
+              <Button text="Sign up" isFullWidth={true} />
+            </div>
           </MyFormWrapper>
         </div>
 

@@ -14,12 +14,14 @@ const orderApi = baseApi.injectEndpoints({
         url: "/orders",
         method: "GET",
       }),
+      providesTags: ["orders"],
     }),
     getOrdersByCustomer: builder.query({
       query: (id) => ({
         url: `/orders/${id}`,
         method: "GET",
       }),
+      providesTags: ["orders"],
     }),
     verifyOrder: builder.query({
       query: (order_id) => ({
@@ -27,6 +29,14 @@ const orderApi = baseApi.injectEndpoints({
         params: { order_id },
         method: "GET",
       }),
+    }),
+    updateShippingStatus: builder.mutation({
+      query: (payload) => ({
+        url: "/orders/update-status",
+        method: "PATCH",
+        body: payload,
+      }),
+      invalidatesTags: ["orders"],
     }),
   }),
 });
@@ -36,4 +46,5 @@ export const {
   useVerifyOrderQuery,
   useGetOrdersQuery,
   useGetOrdersByCustomerQuery,
+  useUpdateShippingStatusMutation,
 } = orderApi;

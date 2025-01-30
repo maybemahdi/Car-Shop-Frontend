@@ -14,6 +14,9 @@ import DashboardHome from "../pages/Dashboard/User/DashboardHome";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyOrders from "../pages/Dashboard/User/MyOrders";
 import MyProfile from "../pages/Dashboard/User/MyProfile";
+import AdminRoute from "./AdminRoute";
+import OrdersManagement from "../pages/Dashboard/Admin/OrdersManagement";
+import UserManagement from "../pages/Dashboard/Admin/UserManagement";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +87,22 @@ const router = createBrowserRouter([
           <WithAuth>
             <MyProfile />
           </WithAuth>
+        ),
+      },
+      {
+        path: "order-management",
+        element: (
+          <AdminRoute>
+            <OrdersManagement />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "user-management",
+        element: (
+          <AdminRoute>
+            <UserManagement />
+          </AdminRoute>
         ),
       },
     ],

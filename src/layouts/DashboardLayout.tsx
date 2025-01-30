@@ -9,17 +9,22 @@ import {
   Bell,
   Search,
   User,
+  Users,
+  LogOut,
 } from "lucide-react";
-import { NavLink, Outlet } from "react-router-dom";
-import { useAppSelector } from "../redux/hooks";
-import { selectCurrentUser } from "../redux/features/auth/authSlice";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { logout, selectCurrentUser } from "../redux/features/auth/authSlice";
+import { toast } from "sonner";
 
 const DashboardLayout = () => {
+  const dispatch = useAppDispatch();
   const user = useAppSelector(selectCurrentUser);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const role = user?.role || "user";
+  const navigate = useNavigate();
 
-  console.log(user);
+  // console.log(user);
 
   const menuItems =
     role == "user"
@@ -34,6 +39,11 @@ const DashboardLayout = () => {
             icon: BarChart3,
             text: "Order Management",
             path: "/dashboard/order-management",
+          },
+          {
+            icon: Users,
+            text: "User Management",
+            path: "/dashboard/user-management",
           },
           {
             icon: Settings,
@@ -66,7 +76,7 @@ const DashboardLayout = () => {
               to={item.path}
               end={item.path === "/dashboard"}
               className={({ isActive }) =>
-                `flex items-center px-4 py-3 text-sm rounded-lg ${
+                `flex items-center px-4 py-3 text-sm rounded-lg transition-all duration-300 ${
                   isActive
                     ? "bg-blue-50 text-primary"
                     : "text-gray-700 hover:bg-gray-100"
@@ -78,6 +88,20 @@ const DashboardLayout = () => {
             </NavLink>
           ))}
         </nav>
+        {/* log out button  */}
+        <div className="p-4 fixed bottom-2 w-full">
+          <button
+            onClick={() => {
+              dispatch(logout());
+              toast.success("Log out Successful");
+              navigate("/login");
+            }}
+            className="flex items-center px-4 py-3 text-sm rounded-lg bg-gray-100 text-gray-700 hover:bg-blue-50 w-full"
+          >
+            <LogOut className="w-5 h-5 mr-3" />
+            Logout
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}
@@ -101,7 +125,7 @@ const DashboardLayout = () => {
                 <input
                   type="search"
                   placeholder="Search..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
               </div>
             </div>

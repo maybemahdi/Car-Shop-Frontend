@@ -1,18 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Select } from "antd";
 import { cn } from "../../../lib/utils";
 import { selectCurrentUser } from "../../../redux/features/auth/authSlice";
-import { useGetOrdersByCustomerQuery } from "../../../redux/features/order/orderApi";
+import {
+  useGetOrdersQuery,
+  useUpdateShippingStatusMutation,
+} from "../../../redux/features/order/orderApi";
 import { useAppSelector } from "../../../redux/hooks";
 import Loading from "../../shared/Loading/Loading";
+import { toast } from "sonner";
 
-const MyOrdersPage = () => {
+const OrdersManagementPage = () => {
   const user = useAppSelector(selectCurrentUser);
   const userId = user?.id;
   const {
     data: response,
     isLoading,
     isError,
-  } = useGetOrdersByCustomerQuery(userId, { skip: !userId });
+  } = useGetOrdersQuery(undefined, { skip: !userId });
+
+  const [updateShippingStatus] = useUpdateShippingStatusMutation();
 
   if (isLoading) {
     return <Loading />;
@@ -25,23 +32,29 @@ const MyOrdersPage = () => {
     );
   }
 
-  const myOrders = response?.data;
+  const handleChange = async (value: string, id: string) => {
+    const toastId = toast.loading("Updating Shipping Status");
+    const payload = {
+      id: id,
+      shippingStatus: value,
+    };
+    try {
+      const res = await updateShippingStatus(payload).unwrap();
+      if (res.success) {
+        toast.success(res.message, { id: toastId });
+      }
+    } catch (error: any) {
+      toast.error(error?.message || "Something went wrong", { id: toastId });
+    }
+  };
 
-  if (!myOrders.length) {
-    return (
-      <h3 className="text-main font-bold text-2xl flex items-center justify-center h-screen">
-        No Order Yet!
-      </h3>
-    );
-  }
+  const allOrders = response?.data;
 
   return (
     <div className="mt-6">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-800">
-            My Ordered Cars
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-800">Manage Orders</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -60,56 +73,56 @@ const MyOrdersPage = () => {
                   Order Details
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Payment
+                  Payment Status
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Shipping Status
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {myOrders?.map((order: any) => (
-                <tr key={order._id}>
+              {allOrders?.map((order: any) => (
+                <tr key={order?._id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-500">
-                      {new Date(order.createdAt).toLocaleDateString()}
+                      {new Date(order?.createdAt).toLocaleDateString()}
                     </div>
                     <div className="text-sm text-gray-500">
-                      {new Date(order.createdAt).toLocaleTimeString()}
+                      {new Date(order?.createdAt).toLocaleTimeString()}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {order.car.brand} {order.car.model}
+                      {order?.car.brand} {order.car.model}
                     </div>
                     <div className="text-sm text-gray-500">
-                      Year: {order.car.year}
+                      Year: {order?.car.year}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{order.email}</div>
-                    <div className="text-sm text-gray-500">{order.phone}</div>
+                    <div className="text-sm text-gray-900">{order?.email}</div>
+                    <div className="text-sm text-gray-500">{order?.phone}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      Quantity: {order.quantity}
+                      Quantity: {order?.quantity}
                     </div>
                     <div className="text-sm font-medium text-gray-900">
-                      Total: ${order.totalPrice.toLocaleString()}
+                      Total: ${order?.totalPrice.toLocaleString()}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500">
-                      {order.method}
-                    </div>
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      {order.status}
+                      {order?.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
                       className={cn(
-                        "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-200",
+                        "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
                         {
                           "text-blue-500 bg-blue-100":
                             order?.shippingStatus === "Shipped",
@@ -123,6 +136,19 @@ const MyOrdersPage = () => {
                       {order?.shippingStatus || "Processing"}
                     </span>
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Select
+                      defaultValue={order?.shippingStatus || "Pending"}
+                      style={{ width: 120 }}
+                      onChange={(value) => handleChange(value, order?._id)}
+                      options={[
+                        { value: "Pending", label: "Pending" },
+                        { value: "Processing", label: "Processing" },
+                        { value: "Shipped", label: "Shipped" },
+                        { value: "Delivered", label: "Delivered" },
+                      ]}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -133,4 +159,4 @@ const MyOrdersPage = () => {
   );
 };
 
-export default MyOrdersPage;
+export default OrdersManagementPage;

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Button from "../../shared/Button/Button";
+// import Button from "../../shared/Button/Button";
 
 const AboutHero = () => {
   return (
@@ -35,7 +35,7 @@ const AboutHero = () => {
             deliver an unparalleled driving experience. Redefine the way you
             travel—your perfect ride awaits.
           </p>
-          <Button text="Contact us" />
+          {/* <Button text="Contact us" /> */}
         </motion.div>
 
         {/* Car Image Carousel */}
