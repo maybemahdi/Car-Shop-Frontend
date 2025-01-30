@@ -27,7 +27,7 @@ const ShopPage = () => {
   const [category, setCategory] = useState("");
   const [availability, setAvailability] = useState("");
   const [priceRange, setPriceRange] = useState<any>([0, 200000]);
-  console.log(priceRange);
+  // console.log(priceRange);
   const queryParams = [
     { name: "searchTerm", value: search },
     { name: "model", value: model },

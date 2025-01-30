@@ -43,14 +43,20 @@ const CheckoutPage = () => {
 
   const handlePayment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (quantity > car.quantity) {
+      toast.error(`Stock has only ${car.quantity} Item`);
+      return; 
+    }
+
     const form = e.target;
     const email = (form as HTMLFormElement).email.value;
     const address = (form as HTMLFormElement).address.value;
     const phone = (form as HTMLFormElement).phone.value;
-    const car = id;
+    const carId = id;
     const payload = {
       email,
-      car,
+      car: carId,
       quantity,
       address,
       phone,

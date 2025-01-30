@@ -9,7 +9,7 @@ const ServiceSection = () => {
     threshold: 0.5, // Trigger when 50% of the section is visible
   });
   return (
-    <div ref={ref} className="py-12 md:py-16">
+    <div ref={ref} className="py-12 md:py-20">
       <div className="w-[90%] md:w-[88%] mx-auto">
         <div className="flex flex-col-reverse md:flex-row gap-12 items-center">
           <div className="basis-1/2 relative">
