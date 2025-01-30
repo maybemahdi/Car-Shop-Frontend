@@ -70,7 +70,7 @@ const MyFormInput = ({
                   type={type}
                   id={name}
                   size="large"
-                  className={cn('w-full bg-transparent', inputClassName)}
+                  className={cn('w-full bg-transparent hover:outline-primary', inputClassName)}
                   placeholder={placeHolder}
                 />
               ) : (

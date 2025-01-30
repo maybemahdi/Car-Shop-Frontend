@@ -1,11 +1,36 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { motion } from "framer-motion";
 import Button from "../Button/Button";
 import { ICar } from "../../../types/car.interface";
 import { useNavigate } from "react-router-dom";
 import { cn } from "../../../lib/utils";
+import { useDeleteCarMutation } from "../../../redux/features/car/car.api";
+import { toast } from "sonner";
 
-const ProductCard = ({ car }: { car: ICar }) => {
+const ProductCard = ({ car, isAdmin }: { car: ICar; isAdmin?: boolean }) => {
   const navigate = useNavigate();
+  const [deleteCar] = useDeleteCarMutation();
+
+  const handleDelete = async () => {
+    const toastId = toast.loading("Deleting Test");
+    try {
+      const result = await deleteCar(car?._id).unwrap();
+      if (result?.success) {
+        toast.success(result?.message, { id: toastId });
+      } else {
+        toast.error(result?.message, { id: toastId });
+      }
+    } catch (error: any) {
+      if (error?.status === 401) {
+        toast.error(error?.data?.message, { id: toastId });
+        return;
+      }
+      toast.error(error?.data?.message || "Something went wrong", {
+        id: toastId,
+      });
+    }
+  };
+
   return (
     <motion.div
       className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300"
@@ -42,15 +67,28 @@ const ProductCard = ({ car }: { car: ICar }) => {
         <p className="text-sm text-primary font-semibold mb-2">
           Price: ${car.price}
         </p>
-        {/* Add to Cart button */}
+        {/* View Details button */}
         <div className="flex justify-end items-center">
-          <Button
-            text={"View Details"}
-            handleClick={() => {
-              navigate(`/car/${car._id}`);
-            }}
-          />
+          {!isAdmin && (
+            <Button
+              text={"View Details"}
+              handleClick={() => {
+                navigate(`/car/${car._id}`);
+              }}
+            />
+          )}
         </div>
+        {isAdmin && (
+          <div className="flex items-center gap-3">
+            <Button
+              text={"Edit Car"}
+              handleClick={() => {
+                navigate(`/dashboard/edit-car/${car._id}`);
+              }}
+            />
+            <Button text={"Delete Car"} handleClick={handleDelete} />
+          </div>
+        )}
       </div>
     </motion.div>
   );

@@ -8,17 +8,10 @@ import "rc-slider/assets/index.css";
 import { useGetAllCarsQuery } from "../../../redux/features/car/car.api";
 import Loading from "../../shared/Loading/Loading";
 import { ICar } from "../../../types/car.interface";
+import { availabilities, brands, categories, models } from "../../../constant/car.constant";
 
 type SearchProps = GetProps<typeof Input.Search>;
 const { Search } = Input;
-
-const models = ["Corolla", "Civic", "Model 3", "F-150", "X5"];
-const brands = ["Toyota", "Honda", "Tesla", "Ford", "BMW"];
-const categories = ["Sedan", "Electric", "Pickup Truck", "SUV"];
-const availabilities = [
-  { name: "In Stock", value: "inStock" },
-  { name: "Out of Stock", value: "outOfStock" },
-];
 
 const ShopPage = () => {
   const [search, setSearch] = useState("");
@@ -175,7 +168,7 @@ const ShopPage = () => {
         </div>
 
         {/* product cards  */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4">
           {cars?.map((car: ICar, index: number) => (
             <ProductCard key={index} car={car} />
           ))}

@@ -6,7 +6,7 @@ const ConfigProviderForAntd = ({ children }: { children: ReactNode }) => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "#E53E29", // Set your primary color here
+          colorPrimary: "#E53E29",
         },
       }}
     >

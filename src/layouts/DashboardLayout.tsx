@@ -11,11 +11,13 @@ import {
   User,
   Users,
   LogOut,
+  Car,
 } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { logout, selectCurrentUser } from "../redux/features/auth/authSlice";
 import { toast } from "sonner";
+import { IoAdd } from "react-icons/io5";
 
 const DashboardLayout = () => {
   const dispatch = useAppDispatch();
@@ -44,6 +46,16 @@ const DashboardLayout = () => {
             icon: Users,
             text: "User Management",
             path: "/dashboard/user-management",
+          },
+          {
+            icon: Car,
+            text: "Car Management",
+            path: "/dashboard/car-management",
+          },
+          {
+            icon: IoAdd,
+            text: "Add Car",
+            path: "/dashboard/add-car",
           },
           {
             icon: Settings,

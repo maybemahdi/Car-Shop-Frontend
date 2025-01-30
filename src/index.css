@@ -106,3 +106,20 @@ body {
 }
 
 /* tabs css end for Overview Page  */
+
+/* antd custom configuration */
+
+.ant-input:hover,
+.ant-input:focus,
+.ant-input-password:hover,
+.ant-input-password:focus {
+  border-color: #E53E29 !important; /* Custom hover/active border color */
+  box-shadow: 0 0 0 2px rgba(#E53E29, 0.2) !important; /* Optional */
+}
+
+.ant-select-selector:hover,
+.ant-select-selector:focus,
+.ant-select-focused .ant-select-selector {
+  border-color: #E53E29 !important; /* Custom hover/active border color */
+  box-shadow: 0 0 0 2px rgba(#E53E29, 0.2) !important; /* Optional */
+}

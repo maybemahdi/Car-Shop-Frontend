@@ -17,6 +17,9 @@ import MyProfile from "../pages/Dashboard/User/MyProfile";
 import AdminRoute from "./AdminRoute";
 import OrdersManagement from "../pages/Dashboard/Admin/OrdersManagement";
 import UserManagement from "../pages/Dashboard/Admin/UserManagement";
+import ProductManagement from "../pages/Dashboard/Admin/ProductManagement";
+import AddCar from "../pages/Dashboard/Admin/AddCar";
+import EditCar from "../pages/Dashboard/Admin/EditCar";
 
 const router = createBrowserRouter([
   {
@@ -102,6 +105,30 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <UserManagement />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "car-management",
+        element: (
+          <AdminRoute>
+            <ProductManagement />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "add-car",
+        element: (
+          <AdminRoute>
+            <AddCar />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "edit-car/:id",
+        element: (
+          <AdminRoute>
+            <EditCar />
           </AdminRoute>
         ),
       },
