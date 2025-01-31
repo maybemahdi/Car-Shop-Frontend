@@ -33,6 +33,22 @@ const carApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["cars"],
     }),
+    addCar: builder.mutation({
+      query: (formData) => ({
+        url: `/cars`,
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["cars"],
+    }),
+    updateCar: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `/cars/${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: ["cars"],
+    }),
   }),
 });
 
@@ -40,4 +56,6 @@ export const {
   useGetAllCarsQuery,
   useGetSingleCarQuery,
   useDeleteCarMutation,
+  useAddCarMutation,
+  useUpdateCarMutation,
 } = carApi;

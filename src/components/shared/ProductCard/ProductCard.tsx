@@ -46,11 +46,11 @@ const ProductCard = ({ car, isAdmin }: { car: ICar; isAdmin?: boolean }) => {
             }
           )}
         >
-          {car.inStock ? "In Stock" : "Out of Stock"}
+          {car?.inStock ? "In Stock" : "Out of Stock"}
         </div>
         <img
           src={
-            car.image ||
+            car?.image ||
             "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           }
           alt={car.brand || "Product Image"}
@@ -61,9 +61,9 @@ const ProductCard = ({ car, isAdmin }: { car: ICar; isAdmin?: boolean }) => {
         <h3 className="text-2xl font-semibold mb-2">
           <span className="text-primary">{car.model}</span>
         </h3>
-        <p className="text-sm font-semibold mb-2">Model: {car.model}</p>
-        <p className="text-sm font-semibold mb-2">Brand: {car.brand}</p>
-        <p className="text-sm font-semibold mb-2">Category: {car.category}</p>
+        <p className="text-sm font-semibold mb-2">Model: {car?.model}</p>
+        <p className="text-sm font-semibold mb-2">Brand: {car?.brand}</p>
+        <p className="text-sm font-semibold mb-2">Category: {car?.category}</p>
         <p className="text-sm text-primary font-semibold mb-2">
           Price: ${car.price}
         </p>
@@ -73,17 +73,17 @@ const ProductCard = ({ car, isAdmin }: { car: ICar; isAdmin?: boolean }) => {
             <Button
               text={"View Details"}
               handleClick={() => {
-                navigate(`/car/${car._id}`);
+                navigate(`/car/${car?._id}`);
               }}
             />
           )}
         </div>
         {isAdmin && (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between gap-3">
             <Button
               text={"Edit Car"}
               handleClick={() => {
-                navigate(`/dashboard/edit-car/${car._id}`);
+                navigate(`/dashboard/edit-car/${car?._id}`);
               }}
             />
             <Button text={"Delete Car"} handleClick={handleDelete} />

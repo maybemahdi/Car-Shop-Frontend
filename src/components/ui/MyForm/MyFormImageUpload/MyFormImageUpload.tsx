@@ -13,40 +13,44 @@ type TImageUploadProps = {
   inputClassName?: string;
   previewImageClassName?: string;
   defaultValue?: string;
+  setShowProfile?: (showProfile: boolean) => void;
+  showProfile?: boolean;
   [key: string]: unknown; // Allow other props
 };
 
 const MyFormImageUpload = ({
   name,
   label,
-  size = 'medium',
-  parentClassName = '',
-  labelClassName = '',
-  inputClassName = '',
-  previewImageClassName = '',
+  size = "medium",
+  parentClassName = "",
+  labelClassName = "",
+  inputClassName = "",
+  previewImageClassName = "",
   defaultValue,
   children,
+  showProfile,
+  setShowProfile,
   ...rest
 }: TImageUploadProps) => {
   const { control, setValue, resetField } = useFormContext();
-  const [preview, setPreview] = useState<string | null>(
-    defaultValue || null
-  );
+  const [preview, setPreview] = useState<string | null>(defaultValue || null);
   const [fileInputKey, setFileInputKey] = useState(0);
 
   // Handle file change (set preview and form value)
-  const handleFileChange = (file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result as string); // Set preview
-    };
-    reader.readAsDataURL(file);
+   const handleFileChange = (file: File) => {
+     const reader = new FileReader();
+     reader.onloadend = () => {
+       if (setShowProfile) setShowProfile(!showProfile);
+       setPreview(reader.result as string); // Set preview
+     };
+     reader.readAsDataURL(file);
 
-    setValue(name, file); // Update form value with the file
-  };
+     setValue(name, file); // Update form value with the file
+   };
 
   // Remove image and reset field
   const handleRemoveImage = () => {
+    if (setShowProfile) setShowProfile(!showProfile);
     setPreview(null); // Clear preview
     resetField(name); // Clear form value
     setFileInputKey((prev) => prev + 1); // Force file input reset
@@ -63,20 +67,20 @@ const MyFormImageUpload = ({
 
   return (
     <div className={cn(`form-group h-full ${size}`, parentClassName)}>
-      {label && <p className={cn('mb-2', labelClassName)}>{label}</p>}
+      {label && <p className={cn("mb-2", labelClassName)}>{label}</p>}
       <Controller
         control={control}
         name={name}
         render={({ fieldState: { error } }) => (
           <>
             {preview ? (
-              <div className={cn(' relative w-fit', previewImageClassName)}>
+              <div className={cn(" relative w-fit", previewImageClassName)}>
                 <img
                   height={300}
                   width={300}
                   src={preview}
                   alt="Preview"
-                  className="h-full w-full rounded-md object-fill"
+                  className="rounded-md object-cover"
                 />
                 <button
                   type="button"
@@ -106,16 +110,16 @@ const MyFormImageUpload = ({
                     }
                   }}
                   className={cn(
-                    'w-full rounded-md border border-gray-300 p-[6px]',
+                    "w-full rounded-md border border-gray-300 p-[6px]",
                     inputClassName,
-                    children && 'hidden'
+                    children && "hidden"
                   )}
                   {...rest}
                 />
               </>
             )}
 
-            {error && <small style={{ color: 'red' }}>{error.message}</small>}
+            {error && <small style={{ color: "red" }}>{error.message}</small>}
           </>
         )}
       />
