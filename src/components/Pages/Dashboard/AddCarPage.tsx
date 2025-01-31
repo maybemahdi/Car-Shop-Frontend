@@ -16,7 +16,7 @@ import { useState } from "react";
 const validationSchema = z.object({
   brand: z.string().nonempty("Brand is required"),
   model: z.string().nonempty("Model is required"),
-  image: z.instanceof(File),
+  image: z.instanceof(File).optional(),
   year: z
     .number()
     .min(2018, "Year must be 2018 or later")
